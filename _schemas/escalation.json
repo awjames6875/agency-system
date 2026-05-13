@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agency-system/escalation/v1",
+  "title": "Escalation",
+  "description": "Fires when any specialist hits its Rule 0. Routes the situation to a human for resolution. Never guess, never invent — escalate. The system's integrity depends on this schema being used correctly.",
+  "type": "object",
+  "required": ["escalated_by", "escalation_type", "reason", "to", "original_input_ref"],
+  "properties": {
+    "escalated_by": {
+      "type": "string",
+      "enum": ["00_orchestrator", "01_lead_qualifier", "02_property_research", "03_client_communication", "04_transaction_coordinator"]
+    },
+    "escalation_type": {
+      "type": "string",
+      "enum": [
+        "rule_0_refusal",
+        "missing_required_fields",
+        "conflicting_information",
+        "human_decision_required",
+        "external_tool_failure",
+        "low_confidence_routing",
+        "duplicate_detected",
+        "schema_validation_failure"
+      ],
+      "description": "The category of escalation. Human reads this first to understand what they're walking into."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Plain-English explanation. What exactly went wrong. Which field is missing. What conflicted. Written for Diana, not for a developer."
+    },
+    "to": {
+      "type": "string",
+      "enum": ["diana", "assigned_agent", "orchestrator_retry"],
+      "description": "diana = team owner decision required. assigned_agent = agent can resolve. orchestrator_retry = send back to orchestrator with more context."
+    },
+    "original_input_ref": {
+      "type": "string",
+      "description": "handoff_id of the input that caused the escalation. Enables full trace."
+    },
+    "partial_output": {
+      "type": "object",
+      "description": "What the specialist had completed before escalating. Preserves work so the human doesn't start from scratch."
+    },
+    "suggested_resolution": {
+      "type": "string",
+      "description": "Optional: what the specialist would suggest the human do. Not a decision — just context."
+    },
+    "urgency": {
+      "type": "string",
+      "enum": ["blocking", "high", "normal"],
+      "description": "blocking = deal at risk or deadline missed. high = same-day resolution needed. normal = resolve before next interaction."
+    }
+  }
+}

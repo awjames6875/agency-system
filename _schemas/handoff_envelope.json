@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agency-system/handoff_envelope/v1",
+  "title": "ICM Handoff Envelope",
+  "description": "Wrapper around every payload that crosses a specialist boundary. All 10 handoffs in this system use this envelope. The payload shape is defined per-schema in this folder.",
+  "type": "object",
+  "required": ["envelope", "payload"],
+  "properties": {
+    "envelope": {
+      "type": "object",
+      "required": ["case_id", "handoff_id", "from", "to", "timestamp", "trigger", "agent_owner", "schema_version"],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Stable ID for the full transaction thread. Set ONCE at orchestrator on first contact. Never changes. Every handoff in this case carries the same case_id from first lead to close."
+        },
+        "handoff_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique ID for this handoff. Used for tracing and escalation references."
+        },
+        "from": {
+          "type": "string",
+          "enum": ["external", "00_orchestrator", "01_lead_qualifier", "02_property_research", "03_client_communication", "04_transaction_coordinator"],
+          "description": "Folder name of the sending specialist."
+        },
+        "to": {
+          "type": "string",
+          "enum": ["00_orchestrator", "01_lead_qualifier", "02_property_research", "03_client_communication", "04_transaction_coordinator"],
+          "description": "Folder name of the receiving specialist."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when this handoff was created."
+        },
+        "trigger": {
+          "type": "string",
+          "description": "Plain-English reason this handoff fired. E.g. 'All qualifying fields captured, buyer pre-approved, timeline confirmed.'"
+        },
+        "agent_owner": {
+          "type": "string",
+          "enum": ["diana", "agent_sarah", "agent_marcus", "agent_new"],
+          "description": "Which human agent owns this thread. Set by orchestrator on first routing decision. Never changes mid-thread."
+        },
+        "schema_version": {
+          "type": "string",
+          "enum": ["v1"],
+          "description": "Schema version. Increment to v2 when breaking changes are made."
+        },
+        "ghl_contact_id": {
+          "type": "string",
+          "description": "GoHighLevel contact ID. Ties every handoff back to the CRM record."
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "description": "Payload shape is defined in the corresponding schema file for this handoff type. See _schemas/ for all payload schemas."
+    }
+  }
+}

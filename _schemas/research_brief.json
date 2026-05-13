@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agency-system/research_brief/v1",
+  "title": "Research Brief",
+  "description": "Output of property research. A complete picture of a property, neighborhood, or market segment that the assigned agent can walk into a client conversation with confidently.",
+  "type": "object",
+  "required": ["subject", "brief_type", "findings", "assigned_agent"],
+  "properties": {
+    "subject": {
+      "type": "string",
+      "description": "Property address, neighborhood name, or market segment label."
+    },
+    "brief_type": {
+      "type": "string",
+      "enum": ["buyer_property", "buyer_neighborhood", "seller_cma", "market_segment"],
+      "description": "GAP 2 FIX: Tells client_communication which template to use for outreach."
+    },
+    "findings": {
+      "type": "object",
+      "properties": {
+        "comparables": {
+          "type": "array",
+          "description": "Recent comparable sales. Minimum 3.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": { "type": "string" },
+              "sale_price": { "type": "integer" },
+              "sqft": { "type": "integer" },
+              "price_per_sqft": { "type": "number" },
+              "days_on_market": { "type": "integer" },
+              "sold_date": { "type": "string", "format": "date" },
+              "similarity_notes": { "type": "string" }
+            }
+          }
+        },
+        "price_range": {
+          "type": "object",
+          "properties": {
+            "low": { "type": "integer" },
+            "high": { "type": "integer" },
+            "recommended": { "type": "integer" }
+          }
+        },
+        "avg_days_on_market": { "type": "integer" },
+        "market_temp": {
+          "type": "string",
+          "enum": ["hot", "warm", "neutral", "cool", "cold"],
+          "description": "Agent's read of the current market for this property type and location."
+        },
+        "neighborhood_summary": {
+          "type": "string",
+          "description": "2-3 sentences on neighborhood character, walkability, vibe."
+        },
+        "school_ratings": {
+          "type": "object",
+          "properties": {
+            "elementary": { "type": "string" },
+            "middle": { "type": "string" },
+            "high": { "type": "string" },
+            "rating_source": { "type": "string" }
+          }
+        },
+        "red_flags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Anything that should be disclosed or discussed before client falls in love. Liens, flood zone, HOA issues, etc."
+        },
+        "talking_points": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Top 3-5 points the agent should lead with in the client conversation."
+        }
+      }
+    },
+    "qualified_lead_ref": {
+      "type": "string",
+      "description": "handoff_id of the qualified_lead that triggered this research."
+    },
+    "assigned_agent": { "type": "string" }
+  }
+}

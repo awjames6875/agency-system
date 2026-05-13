@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agency-system/seller_lead/v2-stub",
+  "title": "Seller Lead (v2 — STUB)",
+  "description": "TODO v2: Seller-specific qualification output. This stub documents the intended structure. Current build (v1) handles buyers only. Seller path is architecturally supported — client_type=seller routes correctly — but this payload schema is not yet fully implemented. See qualified_lead.json seller_fields for the partial spec.",
+  "type": "object",
+  "properties": {
+    "_note": {
+      "type": "string",
+      "const": "This is a v2 stub. Seller path is documented in qualified_lead.json under intent.seller_fields. Full implementation planned after buyer path is validated in production."
+    },
+    "seller_qualification_fields_to_add": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [
+        "property_address",
+        "current_mortgage_balance",
+        "asking_price_expectation",
+        "motivation_type",
+        "timeline_days",
+        "property_condition",
+        "currently_listed",
+        "prior_agents_used",
+        "repairs_completed",
+        "repairs_outstanding"
+      ]
+    }
+  }
+}

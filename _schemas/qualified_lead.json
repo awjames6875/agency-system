@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agency-system/qualified_lead/v1",
+  "title": "Qualified Lead",
+  "description": "Output of the lead qualifier. The cleanest possible picture of a prospect. Feeds property research or routes to nurture. Required fields enforce that no lead reaches research without being properly qualified.",
+  "type": "object",
+  "required": ["prospect", "intent", "lead_status", "assigned_agent"],
+  "properties": {
+    "prospect": {
+      "type": "object",
+      "required": ["name", "preferred_contact"],
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "preferred_contact": {
+          "type": "string",
+          "enum": ["phone", "email", "text"]
+        },
+        "language": {
+          "type": "string",
+          "enum": ["en", "es"],
+          "default": "en"
+        },
+        "ghl_contact_id": { "type": "string" }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "required": ["client_type"],
+      "properties": {
+        "client_type": {
+          "type": "string",
+          "enum": ["buyer", "seller"],
+          "description": "GAP 2 FIX: Drives which field block is populated below."
+        },
+        "buyer_fields": {
+          "type": "object",
+          "description": "Populated when client_type=buyer.",
+          "required": ["budget_min", "budget_max", "timeline_days", "financing_status"],
+          "properties": {
+            "budget_min": { "type": "integer" },
+            "budget_max": { "type": "integer" },
+            "locations": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Neighborhoods or zip codes. At least one required."
+            },
+            "bedrooms_min": { "type": "integer" },
+            "bathrooms_min": { "type": "number" },
+            "timeline_days": {
+              "type": "integer",
+              "description": "Days until they want to be in a home. Under 90 = active. 90-180 = watch. Over 180 = nurture."
+            },
+            "financing_status": {
+              "type": "string",
+              "enum": ["pre_approved", "not_started", "cash", "unknown"]
+            },
+            "must_haves": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "dealbreakers": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "seller_fields": {
+          "type": "object",
+          "description": "GAP 2 FIX: Seller path stubbed for v1. Fully spec'd in v2.",
+          "properties": {
+            "property_address": { "type": "string" },
+            "asking_price_estimate": { "type": "integer" },
+            "motivation": {
+              "type": "string",
+              "enum": ["upsizing", "downsizing", "relocating", "investment", "other"]
+            },
+            "timeline_days": { "type": "integer" },
+            "property_condition": {
+              "type": "string",
+              "enum": ["excellent", "good", "fair", "needs_work"]
+            },
+            "currently_listed": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "lead_status": {
+      "type": "string",
+      "enum": ["active", "nurture", "unqualified", "closed"],
+      "description": "GAP 4 FIX: Active = route to research now. Nurture = route to client_communication with scenario_type=nurture_check_in. Unqualified = close politely. Closed = archive."
+    },
+    "next_touchpoint": {
+      "type": "string",
+      "format": "date-time",
+      "description": "For nurture leads: when to re-engage. GHL workflow uses this to schedule the follow-up."
+    },
+    "qualification_notes": {
+      "type": "string",
+      "description": "Free-text notes from the qualifier. Anything that doesn't fit the schema fields."
+    },
+    "assigned_agent": {
+      "type": "string",
+      "description": "Carried forward from routing_decision. Never reassigned inside the qualifier."
+    }
+  }
+}

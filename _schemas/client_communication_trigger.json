@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agency-system/client_communication_trigger/v1",
+  "title": "Client Communication Trigger",
+  "description": "Tells the client communication specialist what to draft and why. The scenario_type drives which template and tone to use. GAP 3 FIX: Explicit scenario types from the client brief prevent generic drafts that don't match the situation.",
+  "type": "object",
+  "required": ["trigger_type", "scenario_type", "client_context", "assigned_agent"],
+  "properties": {
+    "trigger_type": {
+      "type": "string",
+      "enum": ["outreach", "follow_up", "mid_deal_event", "nurture_touch"],
+      "description": "High-level category. Determines which section of rules.md applies."
+    },
+    "scenario_type": {
+      "type": "string",
+      "enum": [
+        "initial_outreach",
+        "post_showing",
+        "missed_showing",
+        "competing_offer",
+        "inspection_issue",
+        "financing_delay",
+        "milestone_update",
+        "nurture_check_in"
+      ],
+      "description": "GAP 3 FIX: Each value maps to a specific template and tone. missed_showing = apologetic + immediate reschedule. competing_offer = calm urgency + agent recommends position. inspection_issue = factual + options-forward. financing_delay = reassuring + clear next steps. Never use 'general' — if you can't identify the scenario, escalate."
+    },
+    "client_context": {
+      "type": "object",
+      "required": ["client_name", "assigned_agent", "preferred_contact"],
+      "properties": {
+        "client_name": { "type": "string" },
+        "assigned_agent": {
+          "type": "string",
+          "description": "The specialist drafts in THIS agent's voice — not Diana's, not a generic agent."
+        },
+        "preferred_contact": {
+          "type": "string",
+          "enum": ["phone", "email", "text"],
+          "description": "Drives format: email = formal, text = conversational, phone = talking points only."
+        },
+        "language": {
+          "type": "string",
+          "enum": ["en", "es"],
+          "default": "en"
+        },
+        "relationship_stage": {
+          "type": "string",
+          "enum": ["new", "active", "under_contract", "post_close", "nurture"],
+          "description": "Affects warmth and assumed familiarity in the draft."
+        }
+      }
+    },
+    "deal_context": {
+      "type": "object",
+      "description": "Populated for mid-deal events.",
+      "properties": {
+        "deal_id": { "type": "string" },
+        "property_address": { "type": "string" },
+        "current_pipeline_stage": { "type": "string" },
+        "scenario_details": {
+          "type": "string",
+          "description": "Plain-English description of what happened. E.g. 'Inspection found HVAC needs replacement, estimated $8,000.'"
+        },
+        "recommended_position": {
+          "type": "string",
+          "description": "What the transaction coordinator recommends the agent communicate as the negotiation position. Client_communication includes this in the draft."
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time",
+          "description": "If there is a response deadline, include it. The draft should reference it explicitly."
+        }
+      }
+    },
+    "research_brief_ref": {
+      "type": "string",
+      "description": "handoff_id of the research_brief if relevant to this communication."
+    },
+    "assigned_agent": { "type": "string" }
+  }
+}

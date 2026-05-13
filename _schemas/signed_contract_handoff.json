@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agency-system/signed_contract_handoff/v1",
+  "title": "Signed Contract Handoff",
+  "description": "Transfers ownership of a deal from client_communication to transaction_coordinator. Fires when a contract is executed. Contains everything the TC needs to own the deal from this point through close.",
+  "type": "object",
+  "required": ["deal_id", "parties", "property", "key_dates", "assigned_agent"],
+  "properties": {
+    "deal_id": {
+      "type": "string",
+      "description": "Unique deal identifier. Referenced in all downstream handoffs for this transaction."
+    },
+    "parties": {
+      "type": "object",
+      "required": ["buyer_name", "assigned_agent"],
+      "properties": {
+        "buyer_name": { "type": "string" },
+        "seller_name": { "type": "string" },
+        "buyer_agent": { "type": "string" },
+        "listing_agent": { "type": "string" },
+        "buyer_attorney": { "type": "string" },
+        "seller_attorney": { "type": "string" },
+        "title_company": { "type": "string" },
+        "lender": { "type": "string" }
+      }
+    },
+    "property": {
+      "type": "object",
+      "required": ["address", "contract_price"],
+      "properties": {
+        "address": { "type": "string" },
+        "mls_number": { "type": "string" },
+        "contract_price": { "type": "integer" },
+        "earnest_money": { "type": "integer" },
+        "option_fee": { "type": "integer" },
+        "down_payment": { "type": "integer" },
+        "loan_type": {
+          "type": "string",
+          "enum": ["conventional", "fha", "va", "cash", "other"]
+        }
+      }
+    },
+    "key_dates": {
+      "type": "object",
+      "required": ["contract_date", "closing_date"],
+      "description": "TC creates deadline alerts in GHL from these dates immediately on receipt.",
+      "properties": {
+        "contract_date": { "type": "string", "format": "date" },
+        "option_period_end": { "type": "string", "format": "date" },
+        "inspection_deadline": { "type": "string", "format": "date" },
+        "appraisal_deadline": { "type": "string", "format": "date" },
+        "financing_deadline": { "type": "string", "format": "date" },
+        "title_commitment_deadline": { "type": "string", "format": "date" },
+        "closing_date": { "type": "string", "format": "date" }
+      }
+    },
+    "documents_received": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of documents already in hand at handoff time."
+    },
+    "documents_outstanding": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of documents still needed. TC owns chasing these."
+    },
+    "known_risks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Anything flagged during research or negotiation that TC should watch. Carried from research_brief red_flags."
+    },
+    "assigned_agent": { "type": "string" },
+    "qualified_lead_ref": { "type": "string" },
+    "research_brief_ref": { "type": "string" }
+  }
+}

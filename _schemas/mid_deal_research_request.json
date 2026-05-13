@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agency-system/mid_deal_research_request/v1",
+  "title": "Mid-Deal Research Request",
+  "description": "Transaction coordinator requesting additional research after a deal is under contract. Common triggers: inspection findings, appraisal gap, title issues, repair cost estimates.",
+  "type": "object",
+  "required": ["deal_id", "research_type", "urgency", "assigned_agent"],
+  "properties": {
+    "deal_id": { "type": "string" },
+    "research_type": {
+      "type": "string",
+      "enum": [
+        "additional_comps",
+        "repair_cost_estimate",
+        "flood_zone_check",
+        "title_issue_research",
+        "appraisal_gap_analysis",
+        "neighborhood_deep_dive",
+        "other"
+      ]
+    },
+    "urgency": {
+      "type": "string",
+      "enum": ["immediate", "within_24h", "within_48h"],
+      "description": "TC sets this based on which deadline is at risk. Property research must honor it."
+    },
+    "context": {
+      "type": "string",
+      "description": "Plain-English description of why the research is needed. E.g. 'Inspection flagged roof replacement needed. Need comps on similar properties post-roof-repair to justify renegotiating price.'"
+    },
+    "specific_questions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Exact questions the research output must answer. Keeps research focused."
+    },
+    "deadline_at_risk": {
+      "type": "string",
+      "format": "date",
+      "description": "The key_date from signed_contract_handoff that this research must support."
+    },
+    "assigned_agent": { "type": "string" }
+  }
+}
