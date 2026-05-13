@@ -6,7 +6,7 @@ Hub-and-spoke with bidirectional mid-deal flows. The orchestrator is the hub. Fi
 ## Request Lifecycle
 
 ```
-INBOUND (GHL form / VAPI call / SMS / chat / manual)
+INBOUND (GHL form / GHL voice bot / SMS / chat / manual)
     │
     ▼
 ┌─────────────────────────────────┐

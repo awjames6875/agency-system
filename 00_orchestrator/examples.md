@@ -1,14 +1,14 @@
 # Examples — 00_orchestrator
 
-## Example 1 — New Buyer Lead via VAPI Call
+## Example 1 — New Buyer Lead via ghl voice bot Call
 
 **Input received:**
 ```json
 {
-  "source": "vapi_call",
+  "source": "ghl voice bot_call",
   "raw_content": "Hi my name is Marcus Thompson, looking to buy in South Austin, budget 400-500k, want to be in by summer.",
   "contact": { "name": "Marcus Thompson", "phone": "512-555-0142", "ghl_contact_id": "ghl_ct_9821" },
-  "vapi_call_summary": "Buyer, South Austin, $400-500k, summer timeline."
+  "ghl voice bot_call_summary": "Buyer, South Austin, $400-500k, summer timeline."
 }
 ```
 
@@ -28,7 +28,7 @@
     "from": "00_orchestrator",
     "to": "01_lead_qualifier",
     "timestamp": "2026-05-13T09:14:00Z",
-    "trigger": "New buyer lead via VAPI, qualifying context present",
+    "trigger": "New buyer lead via ghl voice bot, qualifying context present",
     "agent_owner": "agent_sarah",
     "schema_version": "v1"
   },

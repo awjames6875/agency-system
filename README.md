@@ -2,9 +2,6 @@
 
 A multi-agent ICM (Interpretable Context Methodology) system for a 4-person boutique real estate team in Austin. 60-80 transactions/year. Designed so any team member — including a new agent on day one — is operational without help.
 
-**Live demo:** [GHL funnel — coming Day 4]
-**Voice bot:** [Call this number — coming Day 3]
-
 ---
 
 ## The 60-Second Version
@@ -20,7 +17,7 @@ No lead falls through the cracks. No agent guesses whose job it is. New agent is
 ## Architecture
 
 ```
-Inbound (GHL form / VAPI call / SMS / chat)
+Inbound (GHL form / ghl voice bot call / SMS / chat)
          ↓
    00_orchestrator          ← Front door. Routes everything.
     ↙    ↓    ↘    ↘
@@ -47,7 +44,7 @@ Inbound (GHL form / VAPI call / SMS / chat)
 
 ## A Typical Buyer Request (Start to Finish)
 
-1. **Phone call comes in** → VAPI bot answers, creates GHL contact, sends call summary to `00_orchestrator`
+1. **Phone call comes in** → GHL voice bot answers, creates GHL contact, sends call summary to `00_orchestrator`
 2. **Orchestrator classifies** → new buyer lead → assigns Agent Sarah → sets case_id → routes to `01_lead_qualifier`
 3. **Lead qualifier** → captures budget ($400-500k), location (South Austin), timeline (60 days), pre-approved → `lead_status: active` → passes `qualified_lead.json` to `02_property_research`
 4. **Property research** → pulls South Austin comps, school ratings, flags flood zone risk, writes talking points → passes `research_brief.json` to `03_client_communication`
@@ -111,7 +108,7 @@ Most multi-agent systems define handoffs as prose descriptions. This system defi
 2. Add `CLAUDE.md` as project knowledge
 3. Add your agent names to the `agent_owner` enum in `_schemas/handoff_envelope.json`
 4. Set up GHL pipeline stages: `New Lead → Qualified → Research Done → Outreach Active → Under Contract → Closed`
-5. Configure VAPI bot using `_deployment/vapi_config.md`
+5. Configure GHL voice bot using `_deployment/ghl_voice_config.md`
 6. Full GHL setup guide: `_deployment/ghl_setup.md`
 
 ---
@@ -120,7 +117,7 @@ Most multi-agent systems define handoffs as prose descriptions. This system defi
 
 - ICM (Interpretable Context Methodology) — Jake Van Clief
 - Bootstrapped using `icm-multi-agent-bootstrap` — a reusable skill that generates this architecture for any team in any industry. This system is its first production output.
-- GoHighLevel + VAPI for the deployment layer
+- GoHighLevel + ghl voice bot for the deployment layer
 - Austin, TX residential real estate as the domain
 
 ---

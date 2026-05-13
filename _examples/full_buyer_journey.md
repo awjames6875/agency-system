@@ -6,10 +6,10 @@ A complete walkthrough of a buyer request from first contact to under contract. 
 
 ## Day 1 — Inbound Phone Call
 
-**Channel:** VAPI voice bot answers call at 9:14 AM
+**Channel:** ghl voice bot voice bot answers call at 9:14 AM
 **Caller:** Marcus Thompson, looking to buy in South Austin
 
-VAPI creates GHL contact `ghl_ct_9821` and sends call summary to `00_orchestrator`.
+ghl voice bot creates GHL contact `ghl_ct_9821` and sends call summary to `00_orchestrator`.
 
 **Orchestrator produces:**
 - case_id: `a3f7c2d1` ← follows this deal all the way to close
@@ -112,7 +112,7 @@ Contract signed. `03_client_communication` produces `signed_contract_handoff.jso
 
 Routes to `04_transaction_coordinator`.
 
-case_id `a3f7c2d1` is now in TC's hands. It has been on every single handoff since the VAPI call.
+case_id `a3f7c2d1` is now in TC's hands. It has been on every single handoff since the ghl voice bot call.
 
 ---
 

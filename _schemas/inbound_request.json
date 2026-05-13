@@ -2,13 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "agency-system/inbound_request/v1",
   "title": "Inbound Request",
-  "description": "The first payload the orchestrator receives. Normalizes all inbound channels (GHL form, VAPI call, chat, SMS, email, referral) into one shape.",
+  "description": "The first payload the orchestrator receives. Normalizes all inbound channels (GHL form, ghl voice bot call, chat, SMS, email, referral) into one shape.",
   "type": "object",
   "required": ["source", "raw_content", "timestamp"],
   "properties": {
     "source": {
       "type": "string",
-      "enum": ["ghl_form", "vapi_call", "ghl_chat", "sms", "email", "manual_agent_entry", "referral"],
+      "enum": ["ghl_form", "ghl voice bot_call", "ghl_chat", "sms", "email", "manual_agent_entry", "referral"],
       "description": "Where the request came from. Orchestrator uses this to weight its classification confidence."
     },
     "raw_content": {
@@ -29,14 +29,14 @@
         "language": { "type": "string", "enum": ["en", "es"], "default": "en" }
       }
     },
-    "vapi_call_summary": {
+    "ghl voice bot_call_summary": {
       "type": "string",
-      "description": "Populated only when source=vapi_call. VAPI-generated summary of the call."
+      "description": "Populated only when source=ghl voice bot_call. ghl voice bot-generated summary of the call."
     },
-    "vapi_call_recording_url": {
+    "ghl voice bot_call_recording_url": {
       "type": "string",
       "format": "uri",
-      "description": "Populated only when source=vapi_call."
+      "description": "Populated only when source=ghl voice bot_call."
     },
     "referral_source": {
       "type": "string",

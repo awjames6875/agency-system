@@ -1,4 +1,4 @@
-# VAPI Voice Bot Configuration
+# ghl voice bot Voice Bot Configuration
 
 ## What the Bot Does
 Answers inbound calls 24/7. Captures caller name, phone, and initial intent. Creates a GHL contact. Sends a call summary to the orchestrator. Hands off to the human team.
@@ -20,13 +20,13 @@ End every call by confirming: "One of our agents will be in touch within [timefr
 ```
 
 ## GHL Integration
-- Connect VAPI to GHL sub-account (create new sub-account for Diana — do not use existing accounts)
+- Connect ghl voice bot to GHL sub-account (create new sub-account for Diana — do not use existing accounts)
 - Enable contact creation on call end
-- Pass call summary to GHL custom field: `vapi_call_summary`
-- Trigger GHL workflow: "New VAPI Lead" → routes to orchestrator
+- Pass call summary to GHL custom field: `ghl voice bot_call_summary`
+- Trigger GHL workflow: "New ghl voice bot Lead" → routes to orchestrator
 
 ## Phone Number
-Provision a dedicated number for Diana's team through VAPI.
+Provision a dedicated number for Diana's team through ghl voice bot.
 Do not share with other GHL sub-accounts.
 
-Full VAPI configuration guide coming in v1.1.
+Full ghl voice bot configuration guide coming in v1.1.

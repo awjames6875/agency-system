@@ -104,7 +104,7 @@ Prospect via GHL form: interested in buying, but "probably in about a year, just
 ## Example 3 — Rule 0 Refusal (Cannot Qualify After 3 Attempts)
 
 **Input received:**
-Prospect via VAPI call. Vague answers. Won't state budget or timeline after 3 attempts.
+Prospect via ghl voice bot call. Vague answers. Won't state budget or timeline after 3 attempts.
 
 **What I do:**
 Apply Rule 0. Cannot qualify. Set lead_status: nurture, next_touchpoint in 30 days. Escalate note to assigned agent.

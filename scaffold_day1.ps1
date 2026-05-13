@@ -52,8 +52,8 @@ Add-Content -Path "_examples\full_seller_journey.md" -Value "# TODO: Full seller
 New-Item -ItemType File -Path "_deployment\ghl_setup.md" | Out-Null
 Add-Content -Path "_deployment\ghl_setup.md" -Value "# TODO: GHL funnel + workflow + pipeline setup — Day 3 build"
 
-New-Item -ItemType File -Path "_deployment\vapi_config.md" | Out-Null
-Add-Content -Path "_deployment\vapi_config.md" -Value "# TODO: VAPI bot config + GHL integration — Day 3 build"
+New-Item -ItemType File -Path "_deployment\ghl voice bot_config.md" | Out-Null
+Add-Content -Path "_deployment\ghl voice bot_config.md" -Value "# TODO: GHL voice bot config + GHL integration — Day 3 build"
 
 # STEP 6: Create .gitignore
 @'

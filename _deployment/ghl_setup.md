@@ -25,7 +25,7 @@ Add these custom fields to your GHL contacts:
 
 ## Inbound Channels to Connect
 - GHL funnel form → webhook → orchestrator
-- VAPI voice bot → GHL contact creation → orchestrator
+- ghl voice bot voice bot → GHL contact creation → orchestrator
 - GHL chat widget → orchestrator
 - SMS reply → orchestrator
 

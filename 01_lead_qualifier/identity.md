@@ -35,6 +35,6 @@ Vocabulary I avoid: *"What's your budget?"* (too abrupt) / *"Are you pre-approve
 - **Team:** Diana's 4-person Austin real estate team
 - **Domain:** Residential real estate, Austin TX market
 - **Inbound source:** Routed from 00_orchestrator via routing_decision.json
-- **Primary channel:** Phone (via VAPI) and GHL chat widget
+- **Primary channel:** Phone (via ghl voice bot) and GHL chat widget
 - **Language support:** English and Spanish — match the prospect's language
 - **Supervising rule:** New Agent's leads that reach unqualified status get escalated to Diana for review

@@ -2,12 +2,12 @@
 
 ## What I Receive
 
-**From:** External (GHL form, VAPI call, GHL chat, SMS, email, manual agent entry)
+**From:** External (GHL form, ghl voice bot call, GHL chat, SMS, email, manual agent entry)
 **Schema:** `_schemas/inbound_request.json`
 **Required fields:** `source`, `raw_content`, `timestamp`
-**Optional fields:** `contact.name`, `contact.phone`, `contact.ghl_contact_id`, `vapi_call_summary`, `language`
+**Optional fields:** `contact.name`, `contact.phone`, `contact.ghl_contact_id`, `ghl voice bot_call_summary`, `language`
 
-If source is `vapi_call` and no call summary is present → escalate. I cannot classify a call without a summary.
+If source is `ghl voice bot_call` and no call summary is present → escalate. I cannot classify a call without a summary.
 
 ## What I Produce
 
@@ -26,7 +26,7 @@ If source is `vapi_call` and no call summary is present → escalate. I cannot c
 |---|---|
 | Confidence < 0.70 | Escalate to assigned agent with classification attempt and reason |
 | No GHL contact ID on inbound | Proceed with routing, flag missing ID in payload |
-| VAPI call with no summary | Escalate to Diana — cannot classify without transcript |
+| ghl voice bot call with no summary | Escalate to Diana — cannot classify without transcript |
 | Duplicate contact detected | Route to existing thread owner, flag as duplicate |
 | Spanish-language inbound | Route normally, set `language: "es"` in payload |
 | Source unknown | Treat as `manual_agent_entry`, classify from content alone |

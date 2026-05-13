@@ -42,9 +42,9 @@ Every request starts here. Read the request type, go to the right folder, read t
 
 ---
 
-## Deployment Layer (GHL + VAPI)
+## Deployment Layer (GHL + ghl voice bot)
 - **GHL Funnel:** `[your-domain.com]` — public demo URL, all inbound sources unified
-- **VAPI Voice Bot:** `[phone number]` — answers calls 24/7, creates GHL contacts, triggers inbound_request.json
+- **ghl voice bot Voice Bot:** `[phone number]` — answers calls 24/7, creates GHL contacts, triggers inbound_request.json
 - **GHL Pipeline:** 5 stages mirroring specialist progression: `New Lead → Qualified → Research Done → Outreach Active → Under Contract → Closed`
 - **Setup guide:** See `_deployment/ghl_setup.md`
 
